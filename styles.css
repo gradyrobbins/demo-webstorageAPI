@@ -1,0 +1,19 @@
+
+body {font-family: helvetica, arial, sans-serif;
+    font-size: 1.25em;}
+#display-container {
+    background-color: #787878;
+    border: 1px solid black;
+    padding: 20px;
+    margin: 20px;
+}
+.footer {
+  position: fixed;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  background-color: #787878;
+  color: white;
+  text-align: center;
+}
+
