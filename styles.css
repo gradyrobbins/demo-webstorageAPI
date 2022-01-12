@@ -1,12 +1,18 @@
 
 body {font-family: helvetica, arial, sans-serif;
     font-size: 1.25em;}
-#display-container {
-    background-color: #787878;
-    border: 1px solid black;
+
+.newItemEntry {
+  border: 1px solid black;
     padding: 20px;
     margin: 20px;
 }
+.listContainer {
+  border: 1px solid black;
+    padding: 20px;
+    margin: 20px;
+}
+
 .footer {
   position: fixed;
   left: 0;
