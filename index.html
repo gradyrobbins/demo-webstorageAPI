@@ -9,19 +9,19 @@
 </head>
 
 <body>
-  <nav></nav>
-
-  <header>Header</header>
-  <h1> H1 </h1>
+  <main>
+    <section class="newItemEntry">
+      <form id="itemEntryForm">
+        <label for="itemEntry">
+          Enter a new to-do
+        </label>
+        <input id="newItem" type="text" size="40" autocomplete="off" placeholder="Add item" tabindex="0" />
+        <button class="button" id="addItem" title="add New Item" aria-label="add new item to todo list" tabindex="0" >+</button>
+      </form>
+    </section>
+  </main>
   <div id="display-container"> display-container </div>
-  <article>
-    <header></header>
-    <section></section>
-    <footer></footer>
-  </article>
-
   <footer class="footer">  &copy; 2022 Grady M. Robbins </footer>
-
   <script src="main.js"></script>
 </body>
 </html>
