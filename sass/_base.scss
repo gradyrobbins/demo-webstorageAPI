@@ -2,6 +2,11 @@ $default-font-color: #000;
 $default-background-color: #4a90e2;
 $container-bgcolor: #f2f2f2;
 $container-bordercolor: #000;
+$textbox-bordercolor: lightgray;
+$button-textcolor: white;
+$button-hovercolor: 000;
+$add-button-color: #4caf50;
+$clear-button-color: #9f6060;
 
 @mixin mq($size){
     @media only screen and (min-width: $size) {
@@ -12,7 +17,7 @@ $container-bordercolor: #000;
 * {
     margin: 0;
     padding: 0;
-    box-sizing: 0;
+    box-sizing: border-box;
 }
 
 html, body {
