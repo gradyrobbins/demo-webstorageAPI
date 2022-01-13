@@ -13,6 +13,12 @@ document.addEventListener("readystatechange", (event)=>{
 
 const initApp = () => {
     //add listeners
+        const itemEntryForm = document.getElementById("itemEntryForm");
+        itemEntryForm.addEventListener("submit", (event)=>{
+
+        })
+
+
     //procedural
     //load list object
     //use webstorageAPI
@@ -22,9 +28,9 @@ const initApp = () => {
 
 const refreshThePage = () =>{
     clearListDisplay();
-    //renderList()
-    //clearItemEntryField()
-    //setFocusOnItemEntry()
+    renderList()
+    clearItemEntryField()
+    setFocusOnItemEntry()
 
 }
 
@@ -58,7 +64,7 @@ const buildListItem = (item) =>{
     check.type = "checkbox";
     check.id = item.getId();
     check.tabIndex = 0;
-    //addClickListenerToCheckbox(check)
+    addClickListenerToCheckbox(check)
     const label = document.createElement("label");
     label.htmlFor = item.getId();
     label.textContent = item.getItem();
@@ -76,4 +82,12 @@ const addClickListenerToCheckbox = (checkbox) => {
             refreshThePage();
         },1000);
     })
+}
+
+const clearItemEntryField = () =>{
+    document.getElementById("newItem").value = "";
+}
+
+const setFocusOnItemEntry = () => {
+    document.getElementById("newItem").focus();
 }
