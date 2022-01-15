@@ -2,13 +2,14 @@
 <html lang="en">
 <head>
   <meta charset="utf-8">
-  <title>To Do List App </title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Montserrat&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="dist/css/style.min.css">
   <!-- custom favicon more info: http://favicon.htmlkit.com/favicon/s9bipe2bpus1a25rmd91pckja2/replay/ -->
   <link rel="shortcut icon" href="./img/favicon.ico">
+  <script src=".js/main.js" type="module"></script>
+  <title>To Do List App </title>
 </head>
 
 <body>
@@ -24,7 +25,7 @@
     </section>
     <section class="listContainer">
       <div class="listTitle">
-        <h1>To Do:</h1>
+        <h1 tabindex="0">To Do:</h1>
         <button id="clearItems" class="button" title="clear the list" aria-label="remove all items from the list" tabindex="0">CLEAR</button>
         <hr/>
       </div>
@@ -37,11 +38,12 @@
           <input type="checkbox" id="2" tabindex="0">
           <label for="2">sleep</label>
         </div>
+        <p id="confirmation" class="confirmation" aria-live="assertive"></p>
       </div>
     </section>
   </main>
 
   <footer class="footer">  &copy; 2022 Grady M. Robbins </footer>
-  <script src="main.js"></script>
+
 </body>
 </html>
