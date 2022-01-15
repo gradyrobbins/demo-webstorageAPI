@@ -2,7 +2,7 @@
 import ToDoList from "./todolist.js";
 import ToDoItem from "./todoitem.js";
 
-const toDoList = new toDoList();
+const toDoList = new ToDoList();
 
 // launch app
 document.addEventListener("readystatechange", (event)=>{
@@ -15,12 +15,28 @@ const initApp = () => {
     //add listeners
         const itemEntryForm = document.getElementById("itemEntryForm");
         itemEntryForm.addEventListener("submit", (event)=>{
+            event.preventDefault();
+            processSubmission();
+        });
 
+    //another listener:  click event on delete button
+
+        const clearItems = document.getElementById("clearItemsId");
+        clearItems.addEventListener("click" , (event)=>{
+            const list = toDoList.getList();
+            if(list.length){
+                const confirmed = confirm("are you sure?");
+                if(confirmed){
+                    toDoList.clearList();
+                    //TODO: update persistent storage
+                    refreshThePage();
+                }
+            }
         })
-
 
     //procedural
     //load list object
+
     //use webstorageAPI
     //refresh the page
     refreshThePage();
@@ -36,9 +52,7 @@ const refreshThePage = () =>{
 
 const clearListDisplay = () =>{
     const parentElement = document.getElementById("listItems");
-    const deleteContents(parent) = () =>{
-
-    }
+    const deleteContents(parentElement)
 }
 
 const deleteContents = () =>{
@@ -90,4 +104,34 @@ const clearItemEntryField = () =>{
 
 const setFocusOnItemEntry = () => {
     document.getElementById("newItem").focus();
+}
+
+const processSubmission = () => {
+    const newEntryText = getNewEntry();
+    if(!newEntryText.length) return
+    const nextItemId = calcNextItemId();
+    const toDoItem = createNewItem(nextItemId, newEntryText);
+    toDoList.addItemToList(toDoItem);
+    //TODO: update persistent data
+    refreshThePage();
+}
+
+const getNewEntry = () =>{
+    return document.getElementById("newItem").value.trim();
+}
+
+const calcNextItemId = () =>{
+    let nextItemId = 1;
+    const list = toDoList.getList();
+    if(list.length >0 ){
+        nextItemId = list[list.length - 1].getId() +1;
+    }
+    return nextItemId;
+}
+
+const createNewItem = (itemId, itemText) =>{
+    const toDo = new ToDoItem();
+    toDo.setId(itemId);
+    toDo.setItem(itemText);
+    return toDo;
 }
