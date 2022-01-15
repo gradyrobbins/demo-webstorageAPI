@@ -36,10 +36,23 @@ const initApp = () => {
 
     //procedural
     //load list object
+    loadListObject();
+
 
     //use webstorageAPI
     //refresh the page
     refreshThePage();
+}
+
+
+const loadListObject = () =>{
+    const storedList = localStorage.getItem("MyToDoList")
+    if(typeof storedList !== "string") return;
+    const parsedlist = JSON.parse(storedList);
+    parsedlist.foreach(itemObj =>{
+        const newToDoItem = createNewItem(itemObj._id, itemObj._item);
+        toDoList.addItemToList(newToDoItem)
+    })
 }
 
 const refreshThePage = () =>{
@@ -52,7 +65,7 @@ const refreshThePage = () =>{
 
 const clearListDisplay = () =>{
     const parentElement = document.getElementById("listItems");
-    const deleteContents(parentElement)
+    deleteContents(parentElement);
 }
 
 const deleteContents = () =>{
@@ -90,12 +103,24 @@ const buildListItem = (item) =>{
 
 const addClickListenerToCheckbox = (checkbox) => {
     checkbox.addEventListener("click", (event) => {
-        toDoList.removeItemFromList(checkbox.id)
+        toDoList.removeItemFromList(checkbox.id);
+        updatePersistentData(toDoList.getList());
+        const removedText = getLabelText(checkbox.id);
+
+        updateScreenReaderConfirmation(removedText, "removed from list")
         //todo: remove from persistent data
         setTimeout(()=>{
             refreshThePage();
         },1000);
     })
+}
+
+const getLabelText = (checkboxId) => {
+    return document.getElementById(checkboxId).nextElementSibling.textContent
+}
+
+const updatePersistentData = (listArray) => {
+    localStorage.setItem("MyToDoList", JSON.stringify(listArray))
 }
 
 const clearItemEntryField = () =>{
@@ -108,11 +133,13 @@ const setFocusOnItemEntry = () => {
 
 const processSubmission = () => {
     const newEntryText = getNewEntry();
-    if(!newEntryText.length) return
+    if(!newEntryText.length) return;
     const nextItemId = calcNextItemId();
     const toDoItem = createNewItem(nextItemId, newEntryText);
     toDoList.addItemToList(toDoItem);
     //TODO: update persistent data
+    updatePersistentData(toDoList.getList());
+    updateScreenReaderConfirmation(newEntryText, actionVerb);
     refreshThePage();
 }
 
@@ -123,7 +150,7 @@ const getNewEntry = () =>{
 const calcNextItemId = () =>{
     let nextItemId = 1;
     const list = toDoList.getList();
-    if(list.length >0 ){
+    if(list.length > 0 ){
         nextItemId = list[list.length - 1].getId() +1;
     }
     return nextItemId;
@@ -134,4 +161,8 @@ const createNewItem = (itemId, itemText) =>{
     toDo.setId(itemId);
     toDo.setItem(itemText);
     return toDo;
+}
+
+const updateScreenReaderConfirmation = (newEntryText, actionVerb) => {
+    document.getElementById("confirmation").textContent = `${newEntryText} ${actionVerb}.`
 }
