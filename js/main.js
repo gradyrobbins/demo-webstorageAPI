@@ -1,4 +1,3 @@
-// console.log("hello world main.js");
 import ToDoList from "./todolist.js";
 import ToDoItem from "./todoitem.js";
 
@@ -19,9 +18,7 @@ const initApp = () => {
             processSubmission();
         });
 
-    //another listener:  click event on delete button
-
-        const clearItems = document.getElementById("clearItemsId");
+        const clearItems = document.getElementById("clearItems");
         clearItems.addEventListener("click" , (event)=>{
             const list = toDoList.getList();
             if(list.length){
@@ -35,21 +32,17 @@ const initApp = () => {
         })
 
     //procedural
-    //load list object
     loadListObject();
 
-
     //use webstorageAPI
-    //refresh the page
     refreshThePage();
 }
-
 
 const loadListObject = () =>{
     const storedList = localStorage.getItem("MyToDoList")
     if(typeof storedList !== "string") return;
     const parsedlist = JSON.parse(storedList);
-    parsedlist.foreach(itemObj =>{
+    parsedlist.forEach(itemObj =>{
         const newToDoItem = createNewItem(itemObj._id, itemObj._item);
         toDoList.addItemToList(newToDoItem)
     })
@@ -60,7 +53,6 @@ const refreshThePage = () =>{
     renderList()
     clearItemEntryField()
     setFocusOnItemEntry()
-
 }
 
 const clearListDisplay = () =>{
@@ -68,18 +60,17 @@ const clearListDisplay = () =>{
     deleteContents(parentElement);
 }
 
-const deleteContents = () =>{
+const deleteContents = (parentElement) =>{
     let child = parentElement.lastElementChild;
     while (child) {
-        parentElement.removeElement(child)
+        parentElement.removeChild(child)
         child = parentElement.lastElementChild;
     }
-
 }
 
 const renderList = () =>{
     const list = toDoList.getList();
-    list.foreach(item =>{
+    list.forEach(item =>{
         buildListItem(item)
     })
 }
@@ -107,7 +98,7 @@ const addClickListenerToCheckbox = (checkbox) => {
         updatePersistentData(toDoList.getList());
         const removedText = getLabelText(checkbox.id);
 
-        updateScreenReaderConfirmation(removedText, "removed from list")
+        updateScreenReaderConfirmation(removedText, "removed from To Do List")
         //todo: remove from persistent data
         setTimeout(()=>{
             refreshThePage();
@@ -139,7 +130,7 @@ const processSubmission = () => {
     toDoList.addItemToList(toDoItem);
     //TODO: update persistent data
     updatePersistentData(toDoList.getList());
-    updateScreenReaderConfirmation(newEntryText, actionVerb);
+    updateScreenReaderConfirmation(newEntryText, 'added');
     refreshThePage();
 }
 
