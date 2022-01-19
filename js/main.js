@@ -22,10 +22,10 @@ const initApp = () => {
     clearItems.addEventListener("click", (event) => {
         const list = toDoList.getList();
         if (list.length) {
-            const confirmed = confirm("are you sure?");
+            const confirmed = confirm("are you sure you want to delete the entire list?");
             if (confirmed) {
                 toDoList.clearList();
-                //TODO: update persistent storage
+                updatePersistentData(toDoList.getList());
                 refreshThePage();
             }
         }
@@ -98,19 +98,18 @@ const addClickListenerToCheckbox = (checkbox) => {
         updatePersistentData(toDoList.getList());
         const removedText = getLabelText(checkbox.id);
         updateScreenReaderConfirmation(removedText, "removed from To Do List")
-            //todo: remove from persistent data
         setTimeout(() => {
             refreshThePage();
         }, 1000);
-    })
-}
+    });
+};
 
 const getLabelText = (checkboxId) => {
-    return document.getElementById(checkboxId).nextElementSibling.textContent
+    return document.getElementById(checkboxId).nextElementSibling.textContent;
 }
 
 const updatePersistentData = (listArray) => {
-    localStorage.setItem("MyToDoList", JSON.stringify(listArray))
+    localStorage.setItem("MyToDoList", JSON.stringify(listArray));
 }
 
 const clearItemEntryField = () => {
@@ -125,11 +124,11 @@ const processSubmission = () => {
     const newEntryText = getNewEntry();
     if (!newEntryText.length) return;
     const nextItemId = calcNextItemId();
+
     const toDoItem = createNewItem(nextItemId, newEntryText);
     toDoList.addItemToList(toDoItem);
-    //TODO: update persistent data
     updatePersistentData(toDoList.getList());
-    updateScreenReaderConfirmation(newEntryText, 'added');
+    updateScreenReaderConfirmation(newEntryText, "added");
     refreshThePage();
 }
 
@@ -154,5 +153,5 @@ const createNewItem = (itemId, itemText) => {
 }
 
 const updateScreenReaderConfirmation = (newEntryText, actionVerb) => {
-    return document.getElementById("confirmation").textContent = `${newEntryText} ${actionVerb}.`
+    document.getElementById("confirmation").textContent = `${newEntryText} ${actionVerb}.`
 }
