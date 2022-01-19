@@ -8,7 +8,7 @@
   <link rel="stylesheet" href="dist/css/style.min.css">
   <!-- custom favicon more info: http://favicon.htmlkit.com/favicon/s9bipe2bpus1a25rmd91pckja2/replay/ -->
   <link rel="shortcut icon" href="./img/favicon.ico">
-  <script src=".js/main.js" type="module"></script>
+  <script src="js/main.js" type="module"></script>
   <title>To Do List App </title>
 </head>
 
@@ -20,7 +20,7 @@
           New entry:
         </label>
         <input id="newItem" type="text" size="40" autocomplete="off" placeholder="Add item" tabindex="0" />
-        <button class="button" id="addItem" title="add New Item" aria-label="add new item to todo list" tabindex="0" >+</button>
+        <button class="button" id="addItem" title="add New Item" aria-label="add a new item to the list" tabindex="0" >+</button>
       </form>
     </section>
     <section class="listContainer">
@@ -30,14 +30,7 @@
         <hr/>
       </div>
       <div id="listItems">
-        <div class="item">
-          <input type="checkbox" id="1" tabindex="0">
-          <label for="1">eat</label>
-        </div>
-        <div class="item">
-          <input type="checkbox" id="2" tabindex="0">
-          <label for="2">sleep</label>
-        </div>
+        
         <p id="confirmation" class="confirmation" aria-live="assertive"></p>
       </div>
     </section>
